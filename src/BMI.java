@@ -6,13 +6,16 @@ public class BMI {
         Scanner scanner = new Scanner(System.in);
         System.out.print("请输入您的身高(cm):");
         double height = scanner.nextDouble();
-        height = height / 100;
+        //height = height / 100;
+        height /= 100;
         //System.out.println(height);
 
         System.out.print("请输入您的体重(kg):");
         double weight = scanner.nextDouble();
         // '()'运算优先级更高
-        double BMI = weight / (height * height);
-        System.out.println(BMI);
+        //double BMI = weight / (height * height);
+        double BMI = weight / Math.pow(height, 2);
+        BMI = Math.round(BMI * 100) / 100.0;// 保留小数点后两位
+        System.out.println("您的BMI为:" + BMI);
     }
 }
