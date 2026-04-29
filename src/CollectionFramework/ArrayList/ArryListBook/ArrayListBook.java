@@ -1,4 +1,4 @@
-package CollectionFramework.ArryListBook;
+package CollectionFramework.ArrayList.ArryListBook;
 
 import java.util.ArrayList;
 import java.util.List;

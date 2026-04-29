@@ -1,4 +1,4 @@
-package CollectionFramework.ArryListBook;
+package CollectionFramework.ArrayList.ArryListBook;
 
 public class Book {
     // 类的属性
