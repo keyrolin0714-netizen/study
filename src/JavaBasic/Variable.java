@@ -1,3 +1,5 @@
+package JavaBasic;
+
 public class Variable {
     public static void main(String[] args) {
 //        // 字符串(String) : "小绿"

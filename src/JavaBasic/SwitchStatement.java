@@ -1,4 +1,4 @@
-// switch语句
+package JavaBasic;// switch语句
 import java.util.Scanner;
 public class SwitchStatement {
     public static void main(String[] args) {

@@ -1,3 +1,5 @@
+package JavaBasic;
+
 /*
 逻辑运算符
 &&与   ||或   !非(取反)

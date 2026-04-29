@@ -1,3 +1,5 @@
+package JavaBasic;
+
 // 循环嵌套
 public class NestedLoop {
     public static void main(String[] args) {

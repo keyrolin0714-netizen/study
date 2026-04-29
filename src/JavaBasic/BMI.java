@@ -1,4 +1,4 @@
-// BMI计算器
+package JavaBasic;// BMI计算器
 // BMI = 体重(公斤)/身高(m)的平方
 import java.util.Scanner;
 public class BMI {

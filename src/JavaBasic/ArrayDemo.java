@@ -1,3 +1,5 @@
+package JavaBasic;
+
 // array 数组
 public class ArrayDemo {
     public static void main(String[] args) {

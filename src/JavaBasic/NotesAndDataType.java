@@ -1,3 +1,5 @@
+package JavaBasic;
+
 // Java中的数据类型
 public class NotesAndDataType {
     public static void main(String[] args) {

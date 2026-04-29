@@ -1,4 +1,4 @@
-// 引入输入(文本扫描器)
+package JavaBasic;// 引入输入(文本扫描器)
 import java.util.Scanner;
 public class UserInput {
     public static void main(String[] args) {

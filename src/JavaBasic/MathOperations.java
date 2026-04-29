@@ -1,3 +1,5 @@
+package JavaBasic;
+
 public class MathOperations {
     public static void main(String[] args) {
         int x = 10;// 整数与整数做运算时结果只能是整数

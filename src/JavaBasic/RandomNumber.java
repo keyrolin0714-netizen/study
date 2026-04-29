@@ -1,4 +1,4 @@
-// 产生随机数字
+package JavaBasic;// 产生随机数字
 import java.util.Random;
 public class RandomNumber {
     public static void main(String[] args) {

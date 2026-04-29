@@ -1,3 +1,5 @@
+package JavaBasic;
+
 // 2D array 二维数组
 public class Array2D {
     public static void main(String[] args) {
