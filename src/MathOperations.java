@@ -14,6 +14,6 @@ public class MathOperations {
 //        System.out.println(Math.round(3.666));// 做四舍五入
 //        System.out.println(Math.ceil(3.666));// 无条件进位
 //        System.out.println(Math.floor(3.666));// 无条件舍去
-        System.out.println(Math.round(3.666 * 10) / 10.0);// 四舍五入到小数点后第几位
+        System.out.println(Math.round(3.666 * 100) / 100.0);// 四舍五入到小数点后第几位
     }
 }
