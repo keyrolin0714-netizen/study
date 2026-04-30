@@ -1,4 +1,4 @@
-package CommonlyUsedClass;
+package CommonlyUsedClass.Enum;
 
 public class EnumDemo {
     public static void test(WeekDay day){
