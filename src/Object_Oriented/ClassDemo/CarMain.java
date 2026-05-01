@@ -1,4 +1,4 @@
-package Object_Oriented;
+package Object_Oriented.ClassDemo;
 
 public class CarMain {
     public static void main(String[] args) {

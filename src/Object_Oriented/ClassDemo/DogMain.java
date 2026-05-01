@@ -1,4 +1,4 @@
-package Object_Oriented;
+package Object_Oriented.ClassDemo;
 
 public class DogMain {
     // main函数是程序的入口函数

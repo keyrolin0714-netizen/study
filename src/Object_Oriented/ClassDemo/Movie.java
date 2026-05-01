@@ -1,4 +1,4 @@
-package Object_Oriented;
+package Object_Oriented.ClassDemo;
 
 // 创建一个电影类
 public class Movie {

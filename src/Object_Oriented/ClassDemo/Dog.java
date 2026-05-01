@@ -1,4 +1,4 @@
-package Object_Oriented;
+package Object_Oriented.ClassDemo;
 
 // 创建一个Dog类,类名首字母要大写
 public class Dog{ //类名
