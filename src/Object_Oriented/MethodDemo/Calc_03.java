@@ -1,6 +1,6 @@
 package Object_Oriented.MethodDemo;
 
-public class Clac_03 {
+public class Calc_03 {
     public int calc(int num1, int num2, char oper){
         int result = 0;
         switch(oper){
