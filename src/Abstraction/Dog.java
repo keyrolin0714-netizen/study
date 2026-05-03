@@ -1,4 +1,4 @@
-package AbstractionAndEncapsulatio;
+package Abstraction;
 
 public class Dog {
     // 属性

@@ -1,4 +1,4 @@
-package AbstractionAndEncapsulatio;
+package Abstraction;
 
 public class Cat {
     static String name;

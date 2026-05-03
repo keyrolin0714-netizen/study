@@ -1,4 +1,4 @@
-package AbstractionAndEncapsulatio;
+package Abstraction;
 
 public class CatMain {
     public static void main(String[] args) {

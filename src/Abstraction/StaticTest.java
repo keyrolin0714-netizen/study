@@ -1,4 +1,4 @@
-package AbstractionAndEncapsulatio;
+package Abstraction;
 
 public class StaticTest {
     static int num = 100;
