@@ -84,4 +84,29 @@ public class JDBCOperation {
         connection.close();
 
     }
+
+    @Test
+    //
+    public void testInsert() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/at_guigu", "root", "0000");
+
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into t_emp(emp_name,emp_salary,emp_age) values(?,?,?)");
+
+        preparedStatement.setString(1,"rose");
+        preparedStatement.setDouble(2,345.67);
+        preparedStatement.setInt(3,28);
+
+        int result = preparedStatement.executeUpdate();
+
+        // 根据受影响行数,做判断,得到成功或失败
+        if(result > 0){
+            System.out.println("成功");
+        }else {
+            System.out.println("失败");
+        }
+
+        preparedStatement.close();
+        connection.close();
+
+    }
 }
