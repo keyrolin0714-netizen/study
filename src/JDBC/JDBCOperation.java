@@ -63,4 +63,25 @@ public class JDBCOperation {
         connection.close();
     }
 
+    @Test
+    // 多行多列
+    public void testQueryMoreRow() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/at_guigu", "root", "0000");
+
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT emp_id,emp_name,emp_salary,emp_age FROM t_emp WHERE emp_age > ?");
+
+        preparedStatement.setInt(1, 25);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            int emp_id = resultSet.getInt("emp_id");
+            String emp_name = resultSet.getString("emp_name");
+            double emp_salary = resultSet.getDouble("emp_salary");
+            int emp_age = resultSet.getInt("emp_age");
+            System.out.println(emp_id + "\t" + emp_name + "\t" + emp_salary + "\t" + emp_age);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+
+    }
 }
