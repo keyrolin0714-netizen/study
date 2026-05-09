@@ -86,7 +86,7 @@ public class JDBCOperation {
     }
 
     @Test
-    //
+    // 增加
     public void testInsert() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/at_guigu", "root", "0000");
 
@@ -108,5 +108,49 @@ public class JDBCOperation {
         preparedStatement.close();
         connection.close();
 
+    }
+    
+    @Test
+    // 修改
+    public void testUpdate() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/at_guigu", "root", "0000");
+
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE t_emp SET emp_salary = ? WHERE emp_id = ?");
+
+        preparedStatement.setDouble(1, 888);
+        preparedStatement.setInt(2, 6);
+
+        int result = preparedStatement.executeUpdate();
+
+        if(result > 0){
+            System.out.println("成功");
+        }else {
+            System.out.println("失败");
+        }
+
+        preparedStatement.close();
+        connection.close();
+
+    }
+
+    @Test
+    // 删除
+    public void testDelete() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/at_guigu", "root", "0000");
+
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM t_emp WHERE emp_id = ?");
+
+        preparedStatement.setInt(1, 6);
+
+        int result = preparedStatement.executeUpdate();
+
+        if(result > 0){
+            System.out.println("成功");
+        }else {
+            System.out.println("失败");
+        }
+
+        preparedStatement.close();
+        connection.close();
     }
 }
