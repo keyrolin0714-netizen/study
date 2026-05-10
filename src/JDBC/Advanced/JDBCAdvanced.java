@@ -87,12 +87,13 @@ public class JDBCAdvanced {
         preparedStatement.setInt(3, employee.getEmpAge());
         // 执行SQL,并获取返回的结果
         int result = preparedStatement.executeUpdate();
+        ResultSet resultSet = null;
         // 处理结果
         if (result > 0) {
             System.out.println("成功");
             // 获取当前新增数据的主键列,回显到Java中employee对象的empID对象上
             // 返回的主键值是一个单行单列的结果存储在resultSet
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 int emp_ID = resultSet.getInt(1);
                 employee.setEmpId(emp_ID);
@@ -102,6 +103,71 @@ public class JDBCAdvanced {
             System.out.println("失败");
         }
         // 释放资源
+        if (resultSet != null) {
+            resultSet.close();
+            //防止空指针异常
+        }
+
+        preparedStatement.close();
+        connection.close();
+    }
+
+    @Test // 批量添加
+    public void testMoreInsert() throws SQLException {
+        // 获取连接
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/at_guigu", "root", "0000");
+        // 编写SQL语句
+        String sql = "INSERT INTO t_emp(emp_name,emp_salary,emp_age) VALUES (?,?,?)";
+        // 创建预编译的PrepareStatement,传入SQL语句
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        // 获取当前行代码执行的时间,毫秒值
+        long start = System.currentTimeMillis();
+        for (int i = 0;i < 10000;i++){
+            // 为占位符赋值
+            preparedStatement.setString(1,"marry"+i);
+            preparedStatement.setDouble(2,100.0+i);
+            preparedStatement.setInt(3,20+i);
+
+            preparedStatement.executeUpdate();
+        }
+        long end = System.currentTimeMillis();
+
+        System.out.println("消耗时间: " + (end - start));
+
+        preparedStatement.close();
+        connection.close();
+
+    }
+
+    @Test // 批量操作优化
+    public void testBatch() throws SQLException {
+        // 获取连接
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/at_guigu?rewriteBatchedStatements=true", "root", "0000");
+        // 编写SQL语句
+        /*
+            注意:1.必须在连接数据库URL后面追加?rewriteBatchedStatements=true,允许批量操作
+                2.新增SQL必须用values,且语句最后不要追加;结束
+                3.调用addBatch方法,将SQL语句进行批量添加的操作
+                4.统一执行批量操作,调用executeBatch()
+         */
+        String sql = "INSERT INTO t_emp(emp_name,emp_salary,emp_age) VALUES (?,?,?)";
+        // 创建预编译的PrepareStatement,传入SQL语句
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        // 获取当前行代码执行的时间,毫秒值
+        long start = System.currentTimeMillis();
+        for (int i = 0;i < 10000;i++){
+            // 为占位符赋值
+            preparedStatement.setString(1,"marry"+i);
+            preparedStatement.setDouble(2,100.0+i);
+            preparedStatement.setInt(3,20+i);
+
+            preparedStatement.addBatch();
+        }
+        preparedStatement.executeBatch();
+        long end = System.currentTimeMillis();
+
+        System.out.println("消耗时间: " + (end - start));
+
         preparedStatement.close();
         connection.close();
     }
