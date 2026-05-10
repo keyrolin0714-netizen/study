@@ -72,4 +72,37 @@ public class JDBCAdvanced {
         preparedStatement.close();
         connection.close();
     }
+
+    @Test // 主键回显
+    public void testReturnPK() throws SQLException {
+        // 获取连接
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/at_guigu", "root", "0000");
+        // 预编译SQL语句,告知prepareStatement,返回新增数据主键列的值
+        String sql = "INSERT INTO t_emp(emp_name,emp_salary,emp_age) VALUES (?,?,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        // 创建对象,将对象的属性值填充在?占位符上(ORM)
+        Employee employee = new Employee(null,"jack",123.45,29);
+        preparedStatement.setString(1, employee.getEmpName());
+        preparedStatement.setDouble(2, employee.getEmpSalary());
+        preparedStatement.setInt(3, employee.getEmpAge());
+        // 执行SQL,并获取返回的结果
+        int result = preparedStatement.executeUpdate();
+        // 处理结果
+        if (result > 0) {
+            System.out.println("成功");
+            // 获取当前新增数据的主键列,回显到Java中employee对象的empID对象上
+            // 返回的主键值是一个单行单列的结果存储在resultSet
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                int emp_ID = resultSet.getInt(1);
+                employee.setEmpId(emp_ID);
+            }
+            System.out.println(employee);
+        }else {
+            System.out.println("失败");
+        }
+        // 释放资源
+        preparedStatement.close();
+        connection.close();
+    }
 }
