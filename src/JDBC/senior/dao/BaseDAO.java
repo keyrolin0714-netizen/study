@@ -95,4 +95,16 @@ public class BaseDAO {
         JDBCUtilV2.release();
         return list;
     }
+
+    /**
+     * 通用查询:在上面查询的集合结果中获取第一个结果,简化了获取单行单列的获取
+     */
+
+    public <T> T executeQueryBean(Class<T> clazz, String sql, Object... params) throws Exception {
+        List<T> list = this.executeQuery(clazz, sql, params);
+        if (list != null && list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
+    }
 }
