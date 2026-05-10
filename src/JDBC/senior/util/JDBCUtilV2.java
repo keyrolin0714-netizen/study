@@ -59,6 +59,8 @@ public class JDBCUtilV2 {
             if(connection != null){
                 // threadLocal中移除当前已经存储的Connection对象
                 threadLocal.remove();
+                // 如果开启了事务的手动提交,操作完毕后,归还给连接池之前,要将事务的自动提交改为true
+                connection.setAutoCommit(true);
                 // 将Connection对象归还给连接池
                 connection.close();
             }

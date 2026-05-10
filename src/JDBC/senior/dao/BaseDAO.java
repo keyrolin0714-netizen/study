@@ -1,5 +1,6 @@
 package JDBC.senior.dao;
 
+import JDBC.senior.util.JDBCUtil;
 import JDBC.senior.util.JDBCUtilV2;
 
 import java.lang.reflect.Field;
@@ -33,7 +34,9 @@ public class BaseDAO {
         int row = preparedStatement.executeUpdate();
         // 4.释放资源
         preparedStatement.close();
-        JDBCUtilV2.release();
+        if(connection.getAutoCommit()){
+            JDBCUtilV2.release();
+        }
         // 5.处理结果
         return row;
     }
@@ -50,10 +53,10 @@ public class BaseDAO {
      */
     public <T> List<T> executeQuery(Class<T> clazz, String sql, Object... params) throws Exception {
         // 获取连接
-        JDBCUtilV2.getConnection();
+        Connection connection = JDBCUtilV2.getConnection();
 
         // 预编译
-        PreparedStatement preparedStatement = JDBCUtilV2.getConnection().prepareStatement(sql);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
         // 设置占位符的值
         if (params != null && params.length > 0) {
@@ -92,7 +95,9 @@ public class BaseDAO {
         }
         resultSet.close();
         preparedStatement.close();
-        JDBCUtilV2.release();
+        if(connection.getAutoCommit()){
+            JDBCUtilV2.release();
+        }
         return list;
     }
 
