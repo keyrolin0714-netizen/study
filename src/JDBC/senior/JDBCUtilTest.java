@@ -1,6 +1,8 @@
 package JDBC.senior;
 
+import JDBC.senior.dao.BankDAO;
 import JDBC.senior.dao.EmployeeDao;
+import JDBC.senior.dao.impl.BankDaoImpl;
 import JDBC.senior.dao.impl.EmployeeDaoImpl;
 import JDBC.senior.pojo.Employee;
 import JDBC.senior.util.JDBCUtil;
@@ -8,6 +10,7 @@ import JDBC.senior.util.JDBCUtilV2;
 import org.junit.Test;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -68,5 +71,35 @@ public class JDBCUtilTest {
 
         int delete = employeeDao.delete(20008);
         System.out.println("delete: " + delete);
+    }
+
+    @Test
+    public void testTransaction() {
+        BankDAO bankDAO = new BankDaoImpl();
+        Connection connection = null;
+        // 1.获取连接,将连接的事务提交改为手动提交
+        try {
+            connection = JDBCUtil.getConnection();
+            connection.setAutoCommit(false);
+
+            // 2.操作减钱
+            bankDAO.subMoney(1,100);
+
+            int i = 10/0;
+            // 3.操作加钱
+            bankDAO.addMoney(2,100);
+
+            // 4.前置的多次dao操作,没有异常,提交事务
+            connection.commit();
+        } catch (Exception e) {
+            try {
+                connection.rollback();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            //throw new RuntimeException(e);
+        }finally {
+            JDBCUtilV2.release();
+        }
     }
 }
